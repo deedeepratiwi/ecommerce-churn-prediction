@@ -1,0 +1,164 @@
+uvicorn app:app --reload
+
+pipreqs . --force --encoding=utf-8
+pipreqs . --force --encoding=latin-1
+pipreqs . --force --ignore tests,venv,__pycache__
+pipreqs ./src ./notebooks --force
+
+uv init
+uv add -r requirements.txt
+uv lock
+
+docker build --no-cache -t churn-api .
+docker run -p 9696:9696 churn-api
+docker builder prune --> delete docker build cache
+docker run -it --entrypoint bash churn-api
+docker stop churn-api
+
+mlflow ui --port 5000
+mlflow ui --backend-store-uri sqlite:///mlflow.db
+
+ls -R /app
+ls -R /app/src
+cat .dockerignore
+
+pip install prometheus-fastapi-instrumentator
+
+docker-compose up --build
+docker-compose up --build -d
+
+Then visit:
+- FastAPI: http://localhost:9696
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (default login: admin / admin)
+
+Add Prometheus to Grafana
+- Go to Grafana → Settings → Data Sources → Add Prometheus
+- URL: http://prometheus:9090
+- Create dashboards using metrics like:
+- http_requests_total
+- http_request_duration_seconds
+
+docker system df
+docker system prune -a --volumes 
+- -a removes all unused images, not just dangling ones
+- --volumes removes unused volumes
+
+
+# Test prediction using curl or Python
+Terminal test:
+
+curl -X POST http://localhost:8000/predict \
+     -H "Content-Type: application/json" \
+     -d "{
+    "PreferredLoginDevice":"Computer",
+    "PreferredPaymentMode":"Debit Card",
+    "PreferedOrderCat":"Grocery",
+    "MaritalStatus":"Single",
+    "CityTier":"3",
+    "Gender":"Male",
+    "NumberOfDeviceRegistered":"3",
+    "SatisfactionScore":"3",
+    "Tenure":6.0,
+    "WarehouseToHome":3.178054,
+    "HourSpendOnApp":2.0,
+    "NumberOfAddress":1.098612,
+    "OrderAmountHikeFromlastYear":11.0,
+    "CouponUsed":0.693147,
+    "OrderCount":1.94591,
+    "DaySinceLastOrder":0.0,
+    "CashbackAmount":5.616771,
+    "Complain":0
+}"
+
+Python: 
+import requests
+
+url = "http://localhost:8000/predict"
+
+payload = {
+    "PreferredLoginDevice":"Computer",
+    "PreferredPaymentMode":"Debit Card",
+    "PreferedOrderCat":"Grocery",
+    "MaritalStatus":"Single",
+    "CityTier":"3",
+    "Gender":"Male",
+    "NumberOfDeviceRegistered":"3",
+    "SatisfactionScore":"3",
+    "Tenure":6.0,
+    "WarehouseToHome":3.178054,
+    "HourSpendOnApp":2.0,
+    "NumberOfAddress":1.098612,
+    "OrderAmountHikeFromlastYear":11.0,
+    "CouponUsed":0.693147,
+    "OrderCount":1.94591,
+    "DaySinceLastOrder":0.0,
+    "CashbackAmount":5.616771,
+    "Complain":0
+}
+
+res = requests.post(url, json=payload)
+print(res.json())
+
+curl -X POST "http://localhost:8000/predict" \
+     -H "Content-Type: application/json" \
+     -d @./test_payload.json
+
+
+To deploy your FastAPI app to Fly.io, you'll containerize it with Docker, install Fly.io CLI (flyctl), and launch it using fly launch. You’ll be live in minutes.
+Here’s a step-by-step guide tailored to your project:
+
+🚀 Step-by-Step FastAPI Deployment to Fly.io
+✅ 1. Install Fly.io CLI
+curl -L https://fly.io/install.sh | sh
+
+
+$env:Path -split ";"
+flyctl version
+
+Then restart your terminal and run:
+flyctl auth signup
+
+
+Create an account and log in.
+
+✅ 2. Prepare Your App
+Make sure your FastAPI app (e.g. app.py) is ready to run with:
+uvicorn app:app --host 0.0.0.0 --port 8000
+
+
+Your Dockerfile should expose port 8000:
+EXPOSE 8000
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
+
+
+✅ 3. Launch on Fly.io
+From your project root:
+flyctl launch
+
+
+- Choose a name or let Fly generate one
+- Select a region (e.g. Singapore or Jakarta)
+- It will create a fly.toml config file
+
+✅ 4. Deploy
+flyctl deploy
+
+
+This builds your Docker image and deploys it to Fly.io. Once done, you’ll get a public URL like:
+https://your-app-name.fly.dev
+
+
+
+✅ 5. Test Your API
+curl -X POST https://your-app-name.fly.dev/predict \
+  -H "Content-Type: application/json" \
+  -d @test.json
+
+
+
+✅ 6. Optional: Add Monitoring
+If you want to include Prometheus and Grafana:
+- Add them to your docker-compose.yml
+- Deploy with multi-container setup (Fly.io supports this via flyctl deploy --remote-only)
