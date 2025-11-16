@@ -100,12 +100,19 @@ The application is deployed to [Render](https://render.com), a cloud platform fo
 ![FastAPI Render](images/fastapi_render.png)
 
 # 🖼️ User Interface
-A simple web UI is planned to allow users to:
+A simple web UI built using **Streamlit** (did not deploy to Render) allows user to:
 - Input customer features manually
 - View churn prediction and probability
-- Monitor model performance visually
-The UI will be integrated with the FastAPI backend and deployed to Fly.io alongside the API.
+- Instruction to use:
+  ```
+  streamlit run ui.py
+  ```
+  Then go to `http://localhost:8501`.
 
+  ![Streamlit Form](images/streamlit_form.png)
+
+  ![Streamlit Result](images/streamlit_result.png)
+  
 
 A public URL will be added once deployment is finalized.
 
@@ -262,5 +269,6 @@ This launches:
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
 - Implement drift detection and alerting using Prometheus Alertmanager
+
 
 
