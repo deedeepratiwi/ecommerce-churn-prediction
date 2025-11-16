@@ -85,22 +85,20 @@ docker-compose up --build
 ```
 
 # ☁️ Cloud Deployment
-While not deployed to a cloud platform, the project is cloud-ready:
-- Dockerized services
-- Prometheus and Grafana dashboards
-- Prefect orchestration planned (optional)
 
-# ☁️ Cloud Deployment
-The application is deployed to Fly.io, a global edge platform for running containers. The deployment includes:
-- FastAPI backend for serving predictions
-- Prometheus metrics exposed at `/metrics`
-- Grafana dashboard for monitoring
-- Dockerized services deployed via flyctl
-- Instructions for deployment:
-```
-fly launch
-fly deploy
-```
+The application is deployed to [Render](https://render.com), a cloud platform for hosting web services. The deployment includes:
+- FastAPI backend for serving predictions at `/predict`
+- Dockerized services using `uv` and `uvicorn`
+- Secure and reproducible deployment via GitHub integration
+- Instruction for deployment:
+    1. Push your code to GitHub
+    2. Create a new **Web Service** on Render
+    3. Choose the GitHub repo
+    4. Fill in the information (e.g. Name, Language: Docker
+    5. Click **Deploy Web Service** button
+    6. Once done, go to /docs
+ 
+![FastAPI Render](images/fastapi_render.png)
 
 # 🖼️ User Interface
 A simple web UI is planned to allow users to:
@@ -202,7 +200,9 @@ python -m src.predict
 This loads the model from MLflow and runs a sample prediction.
 
 Expected result:
+```
 {'model': 'ecommerce-churn-model', 'prediction': 0, 'probability': 0.43}
+```
 
 # 🚀 7. Run the FastAPI App
 ```
@@ -226,7 +226,9 @@ curl -X POST "http://localhost:8000/predict" \
 ```
 
 Expected result:
+```
 {'model': 'RandomForest', 'prediction': 0, 'probability': 0.43}
+```
 
 # 🐳 8. Run with Docker
 ```
@@ -260,5 +262,5 @@ This launches:
 - Add Prefect for workflow orchestration
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
-
 - Implement drift detection and alerting using Prometheus Alertmanager
+
