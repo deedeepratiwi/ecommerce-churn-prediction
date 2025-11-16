@@ -36,9 +36,9 @@ The EDA includes:
 - Feature importance analysis using mutual information
 EDA was performed in Jupyter notebooks.
 
-![Bivariate Categorical](bivariate_categorical.png)
+![Bivariate Categorical](images/bivariate_categorical.png)
 
-![Bivariate Numerical](bivariate_numerical.png)
+![Bivariate Numerical](images/bivariate_numerical.png)
 
 # 🤖 Model Training
 Multiple models were trained and evaluated:
@@ -190,9 +190,9 @@ mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 Go to `http://localhost:5000`, view Experiments, and explore the Model Registry under `ecommerce-churn-model`.
 
-![MLFlow Runs](mlflow_runs.png)
+![MLFlow Runs](images/mlflow_runs.png)
 
-![MLFlow Registered Models](mlflow_registered_models.png)
+![MLFlow Registered Models](images/mlflow_registered_models.png)
 
 # 🔮 6. Make Predictions
 ```
@@ -216,7 +216,7 @@ Endpoints:
 
 Visit `http://localhost:8000/docs` for interactive API docs. Send POST requests to `/predict` with features in `test.json`.
 
-![FastAPI App](fastapi_localhost.png)
+![FastAPI App](images/fastapi_localhost.png)
 
 Or do curl on bash:
 ```
@@ -241,23 +241,24 @@ This launches:
 # 📈 9. Access Monitoring Dashboard
 - FastAPI: http://localhost:9696/docs
 
-![FastAPI App](fastapi_docker.png)
+![FastAPI App](images/fastapi_docker.png)
 
 - Prometheus: http://localhost:9090 (try typing query `up` or `http_requests_total`)
 
-![Prometheus](prometheus.png)
+![Prometheus](images/prometheus.png)
 
 - Grafana: http://localhost:3000
     - Default login: `admin` / `admin`
     - Add new connection: http://prometheus:9090
     - Import dashboard JSON from `fastapi_dashboard.json` or `docker_wsl_dashboard.json`
 
-![Grafana FastAPI Monitoring](grafana_fastapi.png)
+![Grafana FastAPI Monitoring](images/grafana_fastapi.png)
 
-![Grafana Docker Monitoring](grafana_docker.png)
+![Grafana Docker Monitoring](images/grafana_docker.png)
 
 # 🧠 Future Work
 - Add Prefect for workflow orchestration
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
+
 - Implement drift detection and alerting using Prometheus Alertmanager
