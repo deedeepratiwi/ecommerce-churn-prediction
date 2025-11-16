@@ -109,12 +109,9 @@ A simple web UI built using **Streamlit** (did not deploy to Render) allows user
   ```
   Then go to `http://localhost:8501`.
 
-  ![Streamlit Form](images/streamlit_form.png)
+![Streamlit Form](images/streamlit_form.png)
 
-  ![Streamlit Result](images/streamlit_result.png)
-  
-
-A public URL will be added once deployment is finalized.
+![Streamlit Result](images/streamlit_result.png)
 
 # 📁 Project Structure
 ```
@@ -122,6 +119,7 @@ A public URL will be added once deployment is finalized.
 ├── data/
 │   ├── e-commerce-dataset.csv          # Raw data
 │   └── processed_data.csv              # Cleaned data used for training
+├── images/
 ├── models/
 │   └── best_model.pkl                  # Best model saved
 ├── notebooks/
@@ -269,6 +267,7 @@ This launches:
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
 - Implement drift detection and alerting using Prometheus Alertmanager
+
 
 
 
