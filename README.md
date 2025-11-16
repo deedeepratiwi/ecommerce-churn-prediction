@@ -36,9 +36,8 @@ The EDA includes:
 - Feature importance analysis using mutual information
 EDA was performed in Jupyter notebooks.
 
-![Bivariate Categorical](images/bivariate_categorical.png)
-
-![Bivariate Numerical](images/bivariate_numerical.png)
+<img src="images/bivariate_categorical.png" alt="MLFlow Runs" width="600"/>
+<img src="images/bivariate_numerical.png" alt="MLFlow Runs" width="600"/>
 
 # 🤖 Model Training
 Multiple models were trained and evaluated:
@@ -263,4 +262,5 @@ This launches:
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
 - Implement drift detection and alerting using Prometheus Alertmanager
+
 
