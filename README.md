@@ -27,6 +27,8 @@ This repo extends a machine learning notebook into a full MLOps workflow followi
 System flow:
 `processed_data.csv` → `train.py` (MLflow logs & registered the best model) → `FastAPI app` (serves model) → `Docker + docker-compose` → Prometheus scrapes `/metrics` → Grafana dashboards visualize.
 
+![Ecommerce-churn-prediction](images/ecommerce-churn-prediction.jpg)
+
 # 📊 Exploratory Data Analysis (EDA)
 The EDA includes:
 - Missing value checks and imputation strategies
@@ -267,6 +269,7 @@ This launches:
 - Deploy to cloud (e.g. AWS, or GCP)
 - CI/CD via GitHub Actions (tests, builds)
 - Implement drift detection and alerting using Prometheus Alertmanager
+
 
 
 
